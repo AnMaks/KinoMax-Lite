@@ -11,8 +11,11 @@ class App
     {
         $router = new Router();
 
-        $uri = $_SERVER['REQUEST_URI'];
+        //dd($_SERVER);
 
-        $router->dispatch($uri);
+        $uri = $_SERVER['REQUEST_URI'];
+        $method = $_SERVER['REQUEST_METHOD'];
+
+        $router->dispatch($uri, $method);
     }
 }
