@@ -1,0 +1,23 @@
+# PHP
+vendor/
+*.log
+*.cache
+*.tmp
+
+# Composer
+composer.lock
+
+# IDE и редакторы
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Сессии и временные файлы
+*.session
+tmp/
+cache/
