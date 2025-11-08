@@ -2,19 +2,27 @@
 
 namespace App\Kernal;
 
+use App\Kernal\Container\Container;
 use App\Kernal\Http\Request;
 use App\Kernal\Router\Router;
 
 class App
 {
+    private Container $container;
+
+    public function __construct()
+    {
+        $this->container = new Container();
+    }
 
     public function run(): void
     {
-        $router = new Router();
-        $request = Request::createFromGlobal();
-
+        $this->container->request;
         //dd($_SERVER);
 
-        $router->dispatch($request->uri(), $request ->method());
+        $this->container->router->dispatch(
+                $this->container->request->uri(),
+                $this->container->request->method()
+            );
     }
 }
