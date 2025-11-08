@@ -1,0 +1,12 @@
+name: kino-lite
+recipe: lamp
+
+config:
+  php: 8.4
+  webroot: .
+
+services:
+  phpmyadmin:
+    type: phpmyadmin
+    hosts:
+      - database
