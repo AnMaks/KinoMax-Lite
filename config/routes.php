@@ -1,11 +1,11 @@
-<?php 
+<?php
 
+use App\Controllers\HomeController;
+use App\Controllers\MoviesController;
 use App\Router\Route;
 return [
-    Route::get('/home',function(){
-        include_once APP_PATH . '/views/pages/home.php';}),
-    Route::get('/movies',function(){
-        include_once APP_PATH . '/views/pages/movies.php';}),
-    Route::post('/test',function(){
-        include_once APP_PATH . '/views/pages/movies.php';}),
+    Route::get('/home',[HomeController::class, 'index']),
+    Route::get('/movies',[MoviesController::class, 'index']),
+    Route::get('/test',function(){
+        echo "test";}),
 ];
