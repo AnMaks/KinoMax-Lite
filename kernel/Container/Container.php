@@ -4,6 +4,7 @@ namespace App\Kernal\Container;
 
 use App\Kernal\Http\Request;
 use App\Kernal\Router\Router;
+use App\Kernal\View\View;
 
 class Container
 {
@@ -12,6 +13,8 @@ class Container
 
     public readonly Router $router;
 
+    public readonly View $view;
+
     public function __construct()
     {
      $this -> registerService();   
@@ -19,7 +22,8 @@ class Container
 
     private function registerService(): void
     {
-        $this ->router = new Router();
         $this ->request = Request::createFromGlobal();
+        $this ->view = new View();
+        $this ->router = new Router($this ->view);
     }
 }

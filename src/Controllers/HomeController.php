@@ -2,14 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Kernal\Controller\Controller;
 use App\Kernal\View\View;
 
-class HomeController
+class HomeController extends Controller
 {
     public function index(): void
     {
-        $view = new View();
-        
-        $view ->page('home');
+        $this ->view('home');
     }
 }
