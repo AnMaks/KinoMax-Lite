@@ -2,10 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Kernal\View\View;
+
 class MoviesController
 {
     public function index(): void
     {
-        include_once APP_PATH . '/views/pages/movies.php';
+        $view = new View();
+        
+        $view ->page('movies');
     }
 }
