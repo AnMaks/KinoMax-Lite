@@ -20,12 +20,20 @@ class MoviesController extends Controller
 
     public function store()
     {
-        $data = ['name' => 'ww'];
-        $rules = ['name' => ['required','min:3','max:255']];
+        $validation = $this->request()->validate(['name' => ['required', 'min:3', 'max:50']]);
 
-        $validator = new Validator();
+        if( ! $validation){
+            dd('Validation failed', $this ->request() ->errors());
+        }
+        dd('Validation passed');
 
-        dd($validator ->validate($data, $rules), $validator ->errors());
-        dd($this ->request() -> input('name'));
+        // $this -> request();
+        // $data = ['name' => 'ww'];
+        // $rules = ['name' => ['required','min:3','max:255']];
+
+        // $validator = new Validator();
+
+        // dd($validator ->validate($data, $rules), $validator ->errors());
+        // dd($this ->request() -> input('name'));
     }
 }
