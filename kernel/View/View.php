@@ -2,7 +2,7 @@
 
 namespace App\Kernal\View;
 
-
+use App\Kernal\Exceptions\ViewNotFoundException;
 
 class View
 {
@@ -12,16 +12,22 @@ class View
         $viewPath = APP_PATH . "/views/pages/$name.php";
 
         if(!file_exists($viewPath)){
-            throw new \Exception("View $name not found");
+            throw new ViewNotFoundException("View $name not found");
         }
 
         extract(['view' => $this]);
 
-        include_once APP_PATH . "/views/pages/$name.php";
+        include_once $viewPath;
     }
 
     public function component(string $name): void
     {
-        include_once APP_PATH . "/views/components/$name.php";
+        $componentsPath = APP_PATH . "/views/components/$name.php";
+
+        if(!file_exists($componentsPath)){
+            echo "Component $name not found";
+            return;
+        }
+        include_once $componentsPath;
     }
 }

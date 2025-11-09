@@ -11,9 +11,7 @@ class Request
         public readonly array $server,
         public readonly array $files,
         public readonly array $cookies,
-    )
-    {  
-    }
+    ) {}
 
     public static function createFromGlobal(): static
     {
@@ -26,13 +24,18 @@ class Request
         );
     }
 
-    public function uri(): string 
+    public function uri(): string
     {
-        return strtok($this ->server['REQUEST_URI'],'?');
+        return strtok($this->server['REQUEST_URI'], '?');
     }
 
-     public function method(): string 
+    public function method(): string
     {
-        return $this ->server['REQUEST_METHOD'];
+        return $this->server['REQUEST_METHOD'];
+    }
+
+    public function input(string $key, $default = null): mixed
+    {
+        return $this->post[$key] ?? $this->get[$key] ?? $default;
     }
 }
