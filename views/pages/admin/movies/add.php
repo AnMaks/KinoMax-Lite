@@ -1,18 +1,32 @@
-<?php 
+<?php
+
 /** 
  * @var \App\Kernel\View\View $view
+ * @var \App\Kernel\Session\Session $session
  */
+
 ?>
 
-<?php $view -> component('start')?>
+<?php $view->component('start') ?>
 
 <h1>Add Movies page</h1>
 
 <form action="/admin/movies/add" method="post">
-    <label>Name</label>
-    <div><input type="text" name="name"></div>
-    <div><button>Отправить</button></div>
+    <div>
+        <label>Name</label>
+        <input type="text" name="name">
+    </div>
+    <?php if ($session->has('name')) { ?>
+        <ul>
+            <?php foreach ($session->getFlash('name') as $error) { ?>
+                <li style="color:red"> <?= $error ?></li>
+            <?php } ?>
+        </ul>
+    <?php } ?>
+    <div>
+        <button>Отправить</button>
+    </div>
 
 </form>
 
-<?php $view -> component('end')?>
+<?php $view->component('end') ?>

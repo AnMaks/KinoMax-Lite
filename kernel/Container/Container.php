@@ -32,11 +32,11 @@ class Container
     private function registerService(): void
     {
         $this ->request = Request::createFromGlobal();
-        $this ->view = new View();
         $this ->validator = new Validator();
         $this ->request->setValidator($this ->validator);
         $this ->redirect = new Redirect();
         $this ->session = new Session();
+        $this ->view = new View($this -> session);
         $this ->router = new Router($this ->view, $this ->request, $this ->redirect,$this ->session);
     }
 }
