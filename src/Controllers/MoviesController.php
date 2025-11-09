@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Kernal\Controller\Controller;
+use App\Kernal\Http\Redirect;
 use App\Kernal\Validator\Validator;
 use App\Kernal\View\View;
 
@@ -23,7 +24,7 @@ class MoviesController extends Controller
         $validation = $this->request()->validate(['name' => ['required', 'min:3', 'max:50']]);
 
         if( ! $validation){
-            dd('Validation failed', $this ->request() ->errors());
+            $this ->redirect('/admin/movies/add');
         }
         dd('Validation passed');
 

@@ -2,6 +2,7 @@
 
 namespace App\Kernal\Container;
 
+use App\Kernal\Http\Redirect;
 use App\Kernal\Http\Request;
 use App\Kernal\Router\Router;
 use App\Kernal\Validator\Validator;
@@ -17,6 +18,8 @@ class Container
     public readonly View $view;
 
     public readonly Validator $validator;
+    
+    public readonly Redirect $redirect;
 
     public function __construct()
     {
@@ -27,8 +30,9 @@ class Container
     {
         $this ->request = Request::createFromGlobal();
         $this ->view = new View();
-        $this ->router = new Router($this ->view, $this ->request);
         $this ->validator = new Validator();
         $this ->request->setValidator($this ->validator);
+        $this ->redirect = new Redirect();
+        $this ->router = new Router($this ->view, $this ->request, $this ->redirect);
     }
 }
