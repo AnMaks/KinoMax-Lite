@@ -3,11 +3,15 @@
 namespace App\Kernal\Router;
 
 use App\Kernal\Http\Redirect;
+use App\Kernal\Http\RedirectInterface;
 use App\Kernal\Http\Request;
+use App\Kernal\Http\RequestInterface;
 use App\Kernal\Session\Session;
+use App\Kernal\Session\SessionInterface;
 use App\Kernal\View\View;
+use App\Kernal\View\ViewInterface;
 
-class Router
+class Router implements RouterInterface
 {
     private array $routes = [
         'GET' => [],
@@ -15,10 +19,10 @@ class Router
     ];
 
     public function __construct(
-        private View $view,
-        private Request $request,
-        private Redirect $redirect,
-        private Session $session,
+        private ViewInterface $view,
+        private RequestInterface $request,
+        private RedirectInterface $redirect,
+        private SessionInterface $session,
     )
     {
         $this->initRouters();

@@ -3,10 +3,11 @@
 namespace App\Kernal\Http;
 
 use App\Kernal\Validator\Validator;
+use App\Kernal\Validator\ValidatorInterface;
 
-class Request
+class Request implements RequestInterface
 {
-    public Validator $validator;
+    public ValidatorInterface $validator;
 
     public function __construct(
         public readonly array $get,
@@ -42,7 +43,7 @@ class Request
         return $this->post[$key] ?? $this->get[$key] ?? $default;
     }
 
-    public function setValidator(Validator $validator): void
+    public function setValidator(ValidatorInterface $validator): void
     {
         $this->validator = $validator;
     }

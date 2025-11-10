@@ -3,26 +3,32 @@
 namespace App\Kernal\Container;
 
 use App\Kernal\Http\Redirect;
+use App\Kernal\Http\RedirectInterface;
 use App\Kernal\Http\Request;
+use App\Kernal\Http\RequestInterface;
 use App\Kernal\Router\Router;
+use App\Kernal\Router\RouterInterface;
 use App\Kernal\Session\Session;
+use App\Kernal\Session\SessionInterface;
 use App\Kernal\Validator\Validator;
+use App\Kernal\Validator\ValidatorInterface;
 use App\Kernal\View\View;
+use App\Kernal\View\ViewInterface;
 
 class Container
 {
 
-    public readonly Request $request;
+    public readonly RequestInterface $request;
 
-    public readonly Router $router;
+    public readonly RouterInterface $router;
 
-    public readonly View $view;
+    public readonly ViewInterface $view;
 
-    public readonly Validator $validator;
+    public readonly ValidatorInterface $validator;
     
-    public readonly Redirect $redirect;
+    public readonly RedirectInterface $redirect;
 
-    public readonly Session $session;
+    public readonly SessionInterface $session;
 
     public function __construct()
     {

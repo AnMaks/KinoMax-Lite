@@ -3,7 +3,7 @@
 namespace App\Kernal\Validator;
 
 
-class Validator
+class Validator implements ValidatorInterface
 {
     private array $errors = [];
     private array $data;
@@ -39,7 +39,7 @@ class Validator
         return $this -> errors;
     }
 
-    public function validateRules(string $key, string $ruleName, string $ruleValue = null): string| false
+    private function validateRules(string $key, string $ruleName, string $ruleValue = null): string| false
     {
         $value = $this ->data[$key];
 

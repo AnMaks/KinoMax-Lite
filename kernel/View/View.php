@@ -4,11 +4,12 @@ namespace App\Kernal\View;
 
 use App\Kernal\Exceptions\ViewNotFoundException;
 use App\Kernal\Session\Session;
+use App\Kernal\Session\SessionInterface;
 
-class View
+class View implements ViewInterface
 {
     public function __construct(
-            private Session $session,
+            private SessionInterface $session,
         )
         {
             
