@@ -2,6 +2,10 @@
 
 namespace App\Kernal\Container;
 
+use App\Kernal\Config\Config;
+use App\Kernal\Config\ConfigInteface;
+use App\Kernal\DataBase\DataBase;
+use App\Kernal\DataBase\DataBaseInteface;
 use App\Kernal\Http\Redirect;
 use App\Kernal\Http\RedirectInterface;
 use App\Kernal\Http\Request;
@@ -30,6 +34,10 @@ class Container
 
     public readonly SessionInterface $session;
 
+    public readonly ConfigInteface $config;
+
+    public readonly DataBaseInteface $data_base;
+
     public function __construct()
     {
      $this -> registerService();   
@@ -44,5 +52,7 @@ class Container
         $this ->session = new Session();
         $this ->view = new View($this -> session);
         $this ->router = new Router($this ->view, $this ->request, $this ->redirect,$this ->session);
+        $this -> config = new Config();
+        $this -> data_base = new DataBase($this -> config);
     }
 }

@@ -32,13 +32,6 @@ class MoviesController extends Controller
         }
         dd('Validation passed');
 
-        // $this -> request();
-        // $data = ['name' => 'ww'];
-        // $rules = ['name' => ['required','min:3','max:255']];
-
-        // $validator = new Validator();
-
-        // dd($validator ->validate($data, $rules), $validator ->errors());
-        // dd($this ->request() -> input('name'));
+        
     }
 }
