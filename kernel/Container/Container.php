@@ -51,8 +51,9 @@ class Container
         $this ->redirect = new Redirect();
         $this ->session = new Session();
         $this ->view = new View($this -> session);
-        $this ->router = new Router($this ->view, $this ->request, $this ->redirect,$this ->session);
         $this -> config = new Config();
         $this -> data_base = new DataBase($this -> config);
+        $this ->router = new Router($this ->view, $this ->request, $this ->redirect,$this ->session, $this ->data_base);
+        
     }
 }

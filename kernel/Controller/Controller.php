@@ -2,6 +2,7 @@
 
 namespace App\Kernal\Controller;
 
+use App\Kernal\DataBase\DataBaseInteface;
 use App\Kernal\Http\Redirect;
 use App\Kernal\Http\RedirectInterface;
 use App\Kernal\Http\Request;
@@ -20,6 +21,8 @@ abstract class Controller
     private RedirectInterface $redirect;
 
     private SessionInterface $session;
+
+    private DataBaseInteface $database;
 
     public function request(): RequestInterface
     {
@@ -59,5 +62,15 @@ abstract class Controller
     public function session(): SessionInterface
     {
         return $this ->session;    
+    }
+
+    public function db(): DataBaseInteface
+    {
+        return $this->database;
+    }
+
+    public function setDatabase(DataBaseInteface $database): void
+    {
+        $this->database = $database;
     }
 }
