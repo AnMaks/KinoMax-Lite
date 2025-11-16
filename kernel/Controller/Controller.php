@@ -2,6 +2,7 @@
 
 namespace App\Kernal\Controller;
 
+use App\Kernal\Auth\AuthInterface;
 use App\Kernal\DataBase\DataBaseInteface;
 use App\Kernal\Http\Redirect;
 use App\Kernal\Http\RedirectInterface;
@@ -23,6 +24,18 @@ abstract class Controller
     private SessionInterface $session;
 
     private DataBaseInteface $database;
+
+    private AuthInterface $auth;
+
+    public function auth(): AuthInterface
+    {
+        return $this->auth;
+    }
+
+    public function setAuth( AuthInterface $auth): void
+    {
+        $this->auth = $auth;
+    }
 
     public function request(): RequestInterface
     {

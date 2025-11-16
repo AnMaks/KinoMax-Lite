@@ -2,6 +2,8 @@
 
 namespace App\Kernal\Container;
 
+use App\Kernal\Auth\Auth;
+use App\Kernal\Auth\AuthInterface;
 use App\Kernal\Config\Config;
 use App\Kernal\Config\ConfigInteface;
 use App\Kernal\DataBase\DataBase;
@@ -29,7 +31,7 @@ class Container
     public readonly ViewInterface $view;
 
     public readonly ValidatorInterface $validator;
-    
+
     public readonly RedirectInterface $redirect;
 
     public readonly SessionInterface $session;
@@ -38,22 +40,31 @@ class Container
 
     public readonly DataBaseInteface $data_base;
 
+    public readonly AuthInterface $auth;
+
     public function __construct()
     {
-     $this -> registerService();   
+        $this->registerService();
     }
 
     private function registerService(): void
     {
-        $this ->request = Request::createFromGlobal();
-        $this ->validator = new Validator();
-        $this ->request->setValidator($this ->validator);
-        $this ->redirect = new Redirect();
-        $this ->session = new Session();
-        $this ->view = new View($this -> session);
-        $this -> config = new Config();
-        $this -> data_base = new DataBase($this -> config);
-        $this ->router = new Router($this ->view, $this ->request, $this ->redirect,$this ->session, $this ->data_base);
-        
+        $this->request = Request::createFromGlobal();
+        $this->validator = new Validator();
+        $this->request->setValidator($this->validator);
+        $this->redirect = new Redirect();
+        $this->session = new Session();
+        $this->view = new View($this->session);
+        $this->config = new Config();
+        $this->data_base = new DataBase($this->config);
+        $this->auth = new Auth($this->data_base, $this->session, $this ->config);
+        $this->router = new Router(
+            $this->view,
+            $this->request,
+            $this->redirect,
+            $this->session,
+            $this->data_base,
+            $this->auth
+        );
     }
 }

@@ -10,7 +10,7 @@
 <h1>Register</h1>
 
 <form action="/register" method="post">
-    <p>Логин</p>
+    <p>Email</p>
     <input type="email" name=email>
     <?php if ($session->has('email')) { ?>
     <ul>

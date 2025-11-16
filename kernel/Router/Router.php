@@ -2,6 +2,7 @@
 
 namespace App\Kernal\Router;
 
+use App\Kernal\Auth\AuthInterface;
 use App\Kernal\DataBase\DataBaseInteface;
 use App\Kernal\Http\Redirect;
 use App\Kernal\Http\RedirectInterface;
@@ -25,6 +26,7 @@ class Router implements RouterInterface
         private RedirectInterface $redirect,
         private SessionInterface $session,
         private DataBaseInteface $database,
+        private AuthInterface $auth,
     )
     {
         $this->initRouters();
@@ -53,6 +55,7 @@ class Router implements RouterInterface
             call_user_func([$controller, 'setRedirect'], $this ->redirect);
             call_user_func([$controller, 'setSession'], $this ->session);
             call_user_func([$controller, 'setDatabase'], $this ->database);
+            call_user_func([$controller, 'setAuth'], $this ->auth);
             call_user_func([$controller, $action]);
         }
         else{

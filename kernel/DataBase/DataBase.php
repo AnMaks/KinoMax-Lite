@@ -18,22 +18,22 @@ class  DataBase implements DataBaseInteface
     {
         $fields = array_keys($data);
 
-       
+
 
         $columns = implode(', ', $fields);
-        $binds = implode(', ', array_map(fn ($field) => ":$field",$fields));
+        $binds = implode(', ', array_map(fn($field) => ":$field", $fields));
 
         $sql = "INSERT INTO $table ($columns) VALUES ($binds)";
 
-        $stmt = $this ->pdo ->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
 
         try {
-            $stmt ->execute($data);
+            $stmt->execute($data);
         } catch (\PDOException $th) {
             return false;
         }
-        
-        return (int) $this ->pdo -> lastInsertId();
+
+        return (int) $this->pdo->lastInsertId();
     }
 
     private function coonect(): void
@@ -49,7 +49,31 @@ class  DataBase implements DataBaseInteface
         try {
             $this->pdo = new \PDO("$driver:host=$host;port=$port;dbname=$database;charset=$charset", $username, $password);
         } catch (\PDOException $th) {
-            exit ("Database connection failed: ".$th ->getMessage());
+            exit("Database connection failed: " . $th->getMessage());
         }
     }
+
+    public function first(string $table, array $conditions = []): ?array
+{
+    $where = '';
+    $params = [];
+
+    if (count($conditions) > 0) {
+
+        $where = 'WHERE ' . implode(' AND ', array_map(function ($field) use (&$params, $conditions) {
+            $params[":$field"] = $conditions[$field];
+            return "$field = :$field";
+        }, array_keys($conditions)));
+    }
+
+    $sql = "SELECT * FROM $table $where LIMIT 1";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute($params);
+
+    $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+    return $result ?: null;
+}
+
 }
