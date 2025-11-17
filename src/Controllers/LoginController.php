@@ -17,11 +17,15 @@ class LoginController extends Controller
         $username = $this->request()->input('email'); // обычный пароль
         $password = $this->request()->input('password'); // сырой пароль
 
-        if ($this->auth()->attempt($username, $password)) {
-            echo "Успешный вход!";
-            dd($_SESSION);
-        } else {
-            echo "Неправильный логин или пароль";
-        }
+        $this->auth()->attempt($username, $password);
+
+        $this ->redirect('/home');
+    }
+
+    public function logout()
+    {
+        $this ->auth()->logout();
+
+        return $this ->redirect('/login');
     }
 }
