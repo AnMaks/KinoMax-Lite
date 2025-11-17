@@ -6,6 +6,7 @@ use App\Kernal\Auth\AuthInterface;
 use App\Kernal\Config\ConfigInteface;
 use App\Kernal\DataBase\DataBaseInteface;
 use App\Kernal\Session\SessionInterface;
+use App\Kernal\Auth\User;
 
 class Auth implements AuthInterface
 {
@@ -34,23 +35,32 @@ class Auth implements AuthInterface
         return true;
     }
 
-    public function logout(): void 
+    public function logout(): void
     {
-        $this ->session ->remove($this -> session_field());
+        $this->session->remove($this->session_field());
     }
 
     public function check(): bool
     {
-        return $this ->session ->has($this ->session_field());
+        return $this->session->has($this->session_field());
     }
 
-    public function user(): ?array
+    public function user(): ?User
     {
-        if (! $this ->check()){
+        if (! $this->check()) {
             return null;
         }
 
-        return $this ->database ->first($this->table(), ['id' => $this ->session ->get($this ->session_field()),]);
+        $user = $this->database->first($this->table(), ['id' => $this->session->get($this->session_field()),]);
+        if ($user) {
+            return new User(
+                $user['id'],
+                $user[$this->username()],
+                $user[$this->password()],
+            );
+        }
+
+        return null;
     }
 
     public function username(): string

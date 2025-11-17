@@ -7,3 +7,24 @@
 body {
     font-family: 'Courier New', Courier, monospace;
 }
+
+.account {
+    display: block;
+    background-color: rgb(64, 36, 37);
+    color: white;
+    margin-left: 80%;
+    border: 1px solid #2E9AFF;
+}
+
+.btn {
+    display: block;
+    margin: 0 auto;
+    background-color: #555555;
+    border: none;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 10px;
+
+}

@@ -1,3 +1,8 @@
+<?php
+/**
+ *  @var \App\Kernel\View\ViewInterface $view
+ */
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,5 +14,6 @@
 
 
 </head>
+<?php $view ->component('header'); ?>
 
 <body>
