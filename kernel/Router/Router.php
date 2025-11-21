@@ -3,15 +3,12 @@
 namespace App\Kernal\Router;
 
 use App\Kernal\Auth\AuthInterface;
-use App\Kernal\DataBase\DataBaseInteface;
-use App\Kernal\Http\Redirect;
-use App\Kernal\Http\RedirectInterface;
-use App\Kernal\Http\Request;
-use App\Kernal\Http\RequestInterface;
-use App\Kernal\Session\Session;
-use App\Kernal\Session\SessionInterface;
-use App\Kernal\View\View;
 use App\Kernal\View\ViewInterface;
+use App\Kernal\Http\RequestInterface;
+use App\Kernal\Http\RedirectInterface;
+use App\Kernal\Session\SessionInterface;
+use App\Kernal\DataBase\DataBaseInteface;
+use App\Kernal\Middleware\AbstractMiddlewere;
 
 class Router implements RouterInterface
 {
@@ -39,6 +36,15 @@ class Router implements RouterInterface
         if (! $route){
             $this -> notFound();
             return;
+        }
+
+        if( $route -> hasMiddleware()){
+            foreach($route -> getMiddleware() as $middleware){
+                /** @var AbstractMiddlewere $middleware */
+                $middleware = new $middleware($this ->request, $this ->auth, $this ->redirect);
+
+                $middleware ->handle();
+            }
         }
 
         if (is_array($route-> getAction())){

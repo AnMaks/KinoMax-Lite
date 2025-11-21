@@ -14,7 +14,7 @@ class LoginController extends Controller
     public function login()
     {
         // В контроллере при логине
-        $username = $this->request()->input('email'); // обычный пароль
+        $username = $this->request()->input('email'); 
         $password = $this->request()->input('password'); // сырой пароль
 
         $this->auth()->attempt($username, $password);
