@@ -11,18 +11,22 @@
 
 <h1>Add Movies page</h1>
 
-<form action="/admin/movies/add" method="post">
+<form action="/admin/movies/add" method="post" enctype="multipart/form-data">
     <div>
         <label>Name</label>
-        <input type="text" name="name">
+        <input type=" text" name="name">
     </div>
     <?php if ($session->has('name')) { ?>
-        <ul>
-            <?php foreach ($session->getFlash('name') as $error) { ?>
-                <li style="color:red"> <?= $error ?></li>
-            <?php } ?>
-        </ul>
+    <ul>
+        <?php foreach ($session->getFlash('name') as $error) { ?>
+        <li style="color:red"> <?= $error ?></li>
+        <?php } ?>
+    </ul>
     <?php } ?>
+    <div>
+        <label>Images</label>
+        <input type="file" name="image">
+    </div>
     <div>
         <button>Отправить</button>
     </div>

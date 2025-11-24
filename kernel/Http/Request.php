@@ -2,7 +2,9 @@
 
 namespace App\Kernal\Http;
 
+use App\Kernal\Upload\UploadFile;
 use App\Kernal\Validator\Validator;
+use App\Kernal\Upload\UploadFileInterface;
 use App\Kernal\Validator\ValidatorInterface;
 
 class Request implements RequestInterface
@@ -62,5 +64,21 @@ class Request implements RequestInterface
     public function errors(): array
     {
         return $this -> validator ->errors();
+    }
+
+    public function file(string $key): ?UploadFileInterface
+    {
+        if (! isset($this ->files[$key])){
+            return null;
+        }
+
+        
+        return new UploadFile(
+            $this ->files[$key]['name'],
+            $this ->files[$key]['type'],
+            $this ->files[$key]['tmp_name'],
+            $this ->files[$key]['error'],
+            $this ->files[$key]['size'],
+        );
     }
 }
