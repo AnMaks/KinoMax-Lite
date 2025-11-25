@@ -16,6 +16,8 @@ use App\Kernal\Router\Router;
 use App\Kernal\Router\RouterInterface;
 use App\Kernal\Session\Session;
 use App\Kernal\Session\SessionInterface;
+use App\Kernal\Storage\Storage;
+use App\Kernal\Storage\StorageInterface;
 use App\Kernal\Validator\Validator;
 use App\Kernal\Validator\ValidatorInterface;
 use App\Kernal\View\View;
@@ -42,6 +44,8 @@ class Container
 
     public readonly AuthInterface $auth;
 
+    public readonly StorageInterface $storage;
+
     public function __construct()
     {
         $this->registerService();
@@ -58,13 +62,15 @@ class Container
         $this->data_base = new DataBase($this->config);
         $this->auth = new Auth($this->data_base, $this->session, $this ->config);
         $this->view = new View($this->session, $this ->auth);
+        $this ->storage = new Storage($this ->config);
         $this->router = new Router(
             $this->view,
             $this->request,
             $this->redirect,
             $this->session,
             $this->data_base,
-            $this->auth
+            $this->auth,
+            $this -> storage,
         );
     }
 }

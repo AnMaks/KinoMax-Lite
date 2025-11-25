@@ -23,7 +23,7 @@ class MoviesController extends Controller
     {
         $file = $this ->request() ->file('image');
 
-        dd($file ->move('movies'));
+        $filePath = $file ->move('movies');
         
         $validation = $this->request()->validate(['name' => ['required', 'min:3', 'max:50']]);
 

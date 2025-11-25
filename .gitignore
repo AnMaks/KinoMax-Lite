@@ -21,3 +21,6 @@ Thumbs.db
 *.session
 tmp/
 cache/
+
+/vendor/
+public/storage
