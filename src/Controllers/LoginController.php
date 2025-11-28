@@ -14,12 +14,15 @@ class LoginController extends Controller
     public function login()
     {
         // В контроллере при логине
-        $username = $this->request()->input('email'); 
+        $email = $this->request()->input('email'); 
         $password = $this->request()->input('password'); // сырой пароль
 
-        $this->auth()->attempt($username, $password);
+        if($this->auth()->attempt($email, $password)){
+            $this ->redirect('/');
+        }
 
-        $this ->redirect('/home');
+        $this ->session() ->set('error','Неверный пароль или логин');
+        $this ->redirect('/login');
     }
 
     public function logout()

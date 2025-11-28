@@ -38,8 +38,6 @@ class MoviesController extends Controller
             'name' => $this ->request()->input('name')
         ]);
 
-        dd($id);
-
         
     }
 }
