@@ -50,9 +50,9 @@ abstract class Controller
         $this->request = $request;
     }
 
-    public function view(string $name): void
+    public function view(string $name, array $data =[]): void
     {
-        $this->view->page($name);
+        $this->view->page($name, $data);
     }
 
     public function setView(ViewInterface $view): void

@@ -19,7 +19,7 @@ class MoviesController extends Controller
         $this->view('admin/movies/add');
     }
 
-    public function store()
+    public function store(): void
     {
         $file = $this ->request() ->file('image');
 
@@ -34,7 +34,7 @@ class MoviesController extends Controller
 
             $this->redirect('/admin/movies/add');
         }
-        $id = $this ->db() ->inserta('movies',[
+        $this ->db() ->inserta('movies',[
             'name' => $this ->request()->input('name')
         ]);
 
