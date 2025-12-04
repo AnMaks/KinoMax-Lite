@@ -13,9 +13,9 @@
         <h3 class="mt-3">Новинки</h3>
         <hr>
         <div class="movies">
-            <!-- <?php foreach ($movies as $movie) { ?>
+            <?php foreach ($movies as $movie) { ?>
             <?php $view->component('movie', ['movie' => $movie]); ?>
-            <?php } ?> -->
+            <?php } ?>
         </div>
     </div>
 </main>

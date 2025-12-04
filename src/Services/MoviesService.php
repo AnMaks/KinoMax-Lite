@@ -27,6 +27,7 @@ class MoviesService
             $movie['name'],               // ← name (string)
             $movie['description'],        // ← description (string)
             $movie['preview'],            // ← preview (string)
+            $movie['created_at'],          
         );
     }, $movies);
 }
@@ -67,6 +68,7 @@ class MoviesService
             name: $movies['name'],
             description: $movies['description'],
             preview: $movies['preview'],
+            created_at: $movies['created_at'],
         );
     }
 
@@ -86,6 +88,23 @@ class MoviesService
         $this->db->update('movies', $data, [
             'id' => $id,
         ]);
+
+    }
+
+    public function new()
+    {
+        $movies = $this ->db ->get('movies',[], ['id' => 'DESC'], 5);
+
+        return array_map(function ($movie) {
+            return new Movie(
+                $movie['id'],
+                $movie['category_id'],
+                $movie['name'],
+                $movie['description'],
+                $movie['preview'],
+                $movie['created_at'],
+            );
+        }, $movies);
 
     }
 }

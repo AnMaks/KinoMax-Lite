@@ -4,11 +4,15 @@ namespace App\Controllers;
 
 use App\Kernal\Controller\Controller;
 use App\Kernal\View\View;
+use App\Services\MoviesService;
 
 class HomeController extends Controller
 {
     public function index(): void
     {
-        $this ->view('home');
+        $movies = new MoviesService($this ->db());
+        $this ->view('home', [
+            'movies' => $movies ->new(),
+        ]);
     }
 }

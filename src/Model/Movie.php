@@ -11,8 +11,14 @@ class Movie
         private string $name,
         private string $description,
         private string $preview,
+        private string $created_at,
     )
     {
+    }
+
+    public function created_at():string
+    {
+        return $this ->created_at;
     }
 
     public function categoryid():int

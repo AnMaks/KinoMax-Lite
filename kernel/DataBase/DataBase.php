@@ -76,9 +76,9 @@ class  DataBase implements DataBaseInteface
         return $result ?: null;
     }
 
-    public function get(string $table, array $conditions = []): array
+    public function get(string $table, array $conditions = [], array $order = [], int $limit = -1): array
     {
-         $where = '';
+        $where = '';
         $params = [];
 
         if (count($conditions) > 0) {
@@ -91,6 +91,14 @@ class  DataBase implements DataBaseInteface
 
         $sql = "SELECT * FROM $table $where";
 
+        if (count($order) > 0) {
+            $sql .= ' ORDER BY '.implode(', ', array_map(fn ($field, $direction) => "$field $direction", array_keys($order), $order));
+        }
+
+        if ($limit > 0) {
+            $sql .= " LIMIT $limit";
+        }
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
 
@@ -101,7 +109,7 @@ class  DataBase implements DataBaseInteface
 
     public function delete(string $table, array $conditions = []): void
     {
-         $where = '';
+        $where = '';
         $params = [];
 
         if (count($conditions) > 0) {
@@ -119,31 +127,30 @@ class  DataBase implements DataBaseInteface
     }
 
     public function update(string $table, array $data, array $conditions = []): void
-{
-    $fields = array_keys($data);
+    {
+        $fields = array_keys($data);
 
-    // SET
-    $set = implode(', ', array_map(fn($field) => "$field = :$field", $fields));
+        // SET
+        $set = implode(', ', array_map(fn($field) => "$field = :$field", $fields));
 
-    $where = '';
-    $conditionParams = [];
+        $where = '';
+        $conditionParams = [];
 
-    if (count($conditions) > 0) {
-        $whereParts = [];
-        foreach ($conditions as $field => $value) {
-            $param = "cond_$field"; // префикс cond_
-            $whereParts[] = "$field = :$param";
-            $conditionParams[$param] = $value;
+        if (count($conditions) > 0) {
+            $whereParts = [];
+            foreach ($conditions as $field => $value) {
+                $param = "cond_$field"; // префикс cond_
+                $whereParts[] = "$field = :$param";
+                $conditionParams[$param] = $value;
+            }
+            $where = 'WHERE ' . implode(' AND ', $whereParts);
         }
-        $where = 'WHERE ' . implode(' AND ', $whereParts);
+
+        $sql = "UPDATE $table SET $set $where";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        // объединяем данные и условия с разными плейсхолдерами
+        $stmt->execute(array_merge($data, $conditionParams));
     }
-
-    $sql = "UPDATE $table SET $set $where";
-
-    $stmt = $this->pdo->prepare($sql);
-
-    // объединяем данные и условия с разными плейсхолдерами
-    $stmt->execute(array_merge($data, $conditionParams));
-}
-
 }

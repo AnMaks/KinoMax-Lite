@@ -21,6 +21,7 @@ return [
     Route::post('/admin/categories/destroy', [CategoriesController::class, 'destroy']),
     Route::post('/admin/categories/update', [CategoriesController::class, 'update']),
     Route::get('/admin/categories/update', [CategoriesController::class, 'edit']),
+    Route::get('/movie', [MoviesController::class, 'show']),
     Route::get('/admin/movies/add', [MoviesController::class, 'create']),
     Route::post('/admin/movies/add', [MoviesController::class, 'store']),
     Route::post('/admin/movies/destroy', [MoviesController::class, 'destroy']),
